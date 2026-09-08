@@ -2,6 +2,7 @@
     const COLOR_CLASS = {
         'שמנת': 'is-cream',
         'אפור': 'is-gray',
+        'נייבי': 'is-navy',
         'שחור': 'is-black',
         'חום': 'is-brown',
         "בז'": 'is-beige',

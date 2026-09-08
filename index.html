@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>כורסת עיסוי VC - LUXURY | VIPO</title>
-    <meta name="description" content="כורסת עיסוי VC - LUXURY. חוויית עיסוי מקצועית בנוחות הבית שלך">
+    <meta name="description" content="כורסת עיסוי עם מסילת SL, 5 מנועים, כריות אוויר, גלילי כף רגל וחימום Graphene. 5 תוכניות, LCD, Bluetooth Hi-Fi ושליטה קולית.">
     <meta property="og:title" content="כורסת עיסוי VC - LUXURY">
-    <meta property="og:description" content="חוויית עיסוי מקצועית בנוחות הבית שלך">
+    <meta property="og:description" content="כורסת עיסוי עם מסילת SL, 5 מנועים, כריות אוויר וחימום Graphene לגב, מותניים ורגליים.">
     <meta property="og:image" content="assets/images/chair-cream-hires.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/hero-lab.css">
@@ -46,6 +46,7 @@
                 </div>
                 <div class="vp-stage-bar">
                     <div class="vp-dots" id="vpDots"></div>
+                    <span class="vp-swipe-hint">החליקו לזוויות</span>
                     <div class="vp-swatches" id="vpSwatches"></div>
                 </div>
             </div>
@@ -55,20 +56,31 @@
                     <span class="vp-tag">מפעל ישיר</span>
                 </div>
                 <div class="vp-pricing">
-                    <span class="vp-price-now current-price">₪2,900</span>
+                    <span class="vp-price-now current-price">₪4,900</span>
                     <span class="vp-price-was original-price">₪12,000</span>
-                    <span class="vp-badge-save">76% הנחה</span>
+                    <span class="vp-badge-save">59% הנחה</span>
                 </div>
-                <p class="vp-price-note">מחיר לאחר הגעת המכולה: <strong>₪3,500</strong></p>
+                <p class="vp-ship" id="vpShip">משלוח <strong>₪400</strong> עד 40 ק״מ מבאר יעקב</p>
+                <p class="vp-ship-extra" id="vpShipExtra">מעבר לזה +₪50 לכל 10 ק״מ · אחריות שנה</p>
+                <p class="vp-price-note" hidden>מחיר לאחר הגעת המכולה: <strong>₪4,900</strong></p>
+                <button type="button" class="vp-cta join-group-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    <span class="btn-text">הזמינו עכשיו</span>
+                </button>
             </div>
         </section>
+
+        <div class="s6-lb" id="s6Lb">
+            <button type="button" class="s6-lb-close" id="s6LbClose" aria-label="סגור"><i class="fas fa-xmark"></i></button>
+            <img id="s6LbImg" src="" alt="">
+        </div>
 
         <section class="s2">
             <div class="s2-bg">
                 <div class="vp-deal-stack reveal">
                     <ul class="vp-trust">
                         <li><i class="fas fa-shield-alt"></i> אחריות יצרן</li>
-                        <li><i class="fas fa-certificate"></i> תקן CE</li>
+                        <li><i class="fas fa-cogs"></i> 5 מנועים</li>
                         <li><i class="fas fa-truck-fast"></i> משלוח מהיר</li>
                     </ul>
                     <div class="s2-card">
@@ -78,7 +90,7 @@
                         <div class="s2-live"><span class="s2-pulse"></span>LIVE</div>
                     </div>
                     <div class="s2-timer">
-                        <div class="s2-t"><span id="s2d">45</span><small>ימים</small></div>
+                        <div class="s2-t"><span id="s2d">30</span><small>ימים</small></div>
                         <span class="s2-t-sep">:</span>
                         <div class="s2-t"><span id="s2h">00</span><small>שעות</small></div>
                         <span class="s2-t-sep">:</span>
@@ -107,14 +119,18 @@
                     </div>
                     </div>
                 </div>
-                <p class="s2-vid-label"><i class="fas fa-play-circle"></i> סרטון הדגמה</p>
-                <div class="s2-video-wrap is-preview" id="demoVideoWrap">
-                    <video id="demoVideo" muted loop playsinline autoplay preload="auto" src="assets/1.mp4">
+                <p class="s2-vid-label"><i class="fas fa-play-circle"></i> סרטון קצר</p>
+                <div class="s2-video-wrap is-idle" id="demoVideoWrap">
+                    <video id="demoVideo" muted playsinline preload="none" poster="assets/images/1.webp">
                         הדפדפן שלך לא תומך בנגן וידאו.
                     </video>
-                    <button type="button" class="s2-video-switch" id="demoVideoSwitch" aria-label="החלף לסרטון מלא עם קול">
+                    <button type="button" class="s2-video-play" id="demoVideoPlay" aria-label="הפעל סרטון קצר בלי קול">
+                        <i class="fas fa-play"></i>
+                        <span>הפעל (בלי קול)</span>
+                    </button>
+                    <button type="button" class="s2-video-switch" id="demoVideoSwitch" hidden aria-label="החלף לסרטון מלא עם קול">
                         <i class="fas fa-volume-up"></i>
-                        <span>סרטון מלא עם קול</span>
+                        <span>עם קול</span>
                     </button>
                 </div>
             </div>
@@ -124,16 +140,17 @@
             <div class="sec-card reveal">
                 <div class="vp-eyebrow"><span class="vp-eyebrow-num">01</span><span class="vp-eyebrow-line"></span><span class="vp-eyebrow-txt">למה VIPO</span></div>
                 <h2 class="sec-card-title">חוויית עיסוי מקצועית — ממש בבית</h2>
+                <p class="s3-lead">כורסת עיסוי מתקדמת עם מסילת SL ארוכה, 5 מנועים, כריות אוויר, גלילי עיסוי לכפות הרגליים וחימום Graphene לגב, למותניים ולרגליים. הכורסה כוללת 5 תוכניות עיסוי, עיסוי לישה לצוואר ולכתפיים, Bluetooth Hi-Fi, מסך LCD גדול ושליטה קולית חכמה.</p>
                 <div class="s3-grid">
                     <div class="s3-ben s3-ben--health reveal">
                         <div class="s3-ben-icon"><i class="fas fa-heart-pulse"></i></div>
                         <strong>בריאות הגב</strong>
-                        <p>הקלה מוכחת על כאבי גב, צוואר ושרירים תפוסים — עיסוי יומי בלי לצאת מהבית</p>
+                        <p>עיסוי לישה לצוואר ולכתפיים, ומסילת SL לאורך הגב — בלי לצאת מהבית</p>
                     </div>
                     <div class="s3-ben s3-ben--relax reveal reveal-delay-1">
                         <div class="s3-ben-icon"><i class="fas fa-spa"></i></div>
                         <strong>הפגת מתחים</strong>
-                        <p>שיאטסו מקצועי עם חימום גרפן — ירידה במתח ושיפור שינה</p>
+                        <p>חימום Graphene לגב, מותניים ורגליים + 5 תוכניות עיסוי</p>
                     </div>
                     <div class="s3-ben s3-ben--shield reveal reveal-delay-2">
                         <div class="s3-ben-icon"><i class="fas fa-shield-alt"></i></div>
@@ -150,117 +167,103 @@
                     <h3 class="s3-specs-title"><i class="fas fa-list-check"></i> מפרט טכני</h3>
                     <table class="s3-specs">
                         <tbody>
-                            <tr><td>מנועים</td><td>5 מנועי עיסוי</td></tr>
-                            <tr><td>מסלול עיסוי</td><td>SL ארוך — צוואר עד ירכיים</td></tr>
-                            <tr><td>חימום</td><td>גרפן — גב, מותניים ורגליים</td></tr>
-                            <tr><td>שליטה</td><td>מסך LCD גדול · פקודות קוליות · Bluetooth HIFI</td></tr>
-                            <tr><td>תוכניות</td><td>5 מצבים מותאמים אישית + טיימר עיסוי</td></tr>
-                            <tr><td>מידות (ישיבה)</td><td>145 × 74 × 115 ס"מ (א×ר×ג)</td></tr>
-                            <tr><td>מידות (שכיבה)</td><td>178 × 74 × 102 ס"מ (א×ר×ג)</td></tr>
-                            <tr><td>פתח דלת מינימלי</td><td>75 ס"מ · 78 ס"מ עם אריזה</td></tr>
-                            <tr><td>ריפוד</td><td>עור PU עמיד ונעים למגע</td></tr>
-                            <tr><td>אריזה</td><td>אריזה שלמה All-in-One</td></tr>
-                            <tr><td>צבעים</td><td>שמנת / אפור / שחור</td></tr>
-                            <tr><td>הספק</td><td>2000W · 220–240V</td></tr>
-                            <tr><td>תקן</td><td>CE + תקן ישראלי</td></tr>
+                            <tr><td>חומר</td><td>PU Leather + שלדת פלדה</td></tr>
+                            <tr><td>מנועים</td><td>5 מנועים</td></tr>
+                            <tr><td>מסילה</td><td>SL Extra-Long Hyperbolic Track</td></tr>
+                            <tr><td>חימום</td><td>Graphene — גב, מותניים ורגליים</td></tr>
+                            <tr><td>שליטה</td><td>מסך LCD גדול · שליטה קולית · Bluetooth Hi-Fi</td></tr>
+                            <tr><td>תוכניות</td><td>5 מצבי עיסוי + טיימר 15–30 דקות</td></tr>
+                            <tr><td>מידות הכורסה</td><td>154 × 74 × 112 ס״מ</td></tr>
+                            <tr><td>מידות אריזה</td><td>150 × 76 × 110 ס״מ</td></tr>
+                            <tr><td>משקל נטו / ברוטו</td><td>77 / 87 ק״ג</td></tr>
+                            <tr><td>הספק</td><td>150W</td></tr>
+                            <tr><td>מתח / תדר</td><td>110–240V · 50–60Hz</td></tr>
+                            <tr><td>ריפוד</td><td>עור PU — נעים לעור, עמיד בשחיקה</td></tr>
+                            <tr><td>אריזה</td><td>All-in-One</td></tr>
+                            <tr><td>צבעים (קטלוג)</td><td>חום / בז׳ / כחול</td></tr>
                         </tbody>
                     </table>
                 </div>
 
                 <div class="s3-tech reveal">
                     <h3 class="s3-tech-title"><i class="fas fa-microchip"></i> טכנולוגיית העיסוי</h3>
-                    <p class="s3-tech-lead">מפרט היצרן — מנגנוני עיסוי, שליטה ותמיכה מלאה לגוף</p>
+                    <p class="s3-tech-lead">לפי מפרט היצרן — בלי תוספות שלא מופיעות בקטלוג</p>
                     <div class="s3-tech-grid">
                         <article class="s3-tech-card s3-tech-card--wide reveal">
                             <div class="s3-tech-media">
-                                <img src="assets/images/features/massage-modes-grid.webp" alt="6 מצבי עיסוי — לישה, שיאטסו, טפיחות ועוד" loading="lazy" width="1200" height="675">
+                                <img src="assets/images/features/internal-mechanism.png" alt="הדמיה — מסילת SL ו־5 מנועים" loading="lazy" width="1200" height="675">
                             </div>
                             <div class="s3-tech-body">
-                                <h4>6 טכניקות עיסוי מתקדמות</h4>
-                                <p>לישה, הליכה, שיאטסו, טפיחות, נקישות ורטט — כולל תנועת לישה מקצועית, בתוך 5 מצבים מותאמים אישית</p>
+                                <h4>5 מנועים + מסילת SL</h4>
+                                <p>מסילת SL Extra-Long Hyperbolic Track ותנועת לישה. 5 תוכניות עיסוי מותאמות + טיימר 15–30 דקות</p>
                             </div>
                         </article>
                         <article class="s3-tech-card reveal reveal-delay-1">
                             <div class="s3-tech-media">
-                                <img src="assets/images/features/neck-mechanism.webp" alt="מנגנון עיסוי צוואר — תנועה אנכית" loading="lazy" width="800" height="450">
+                                <img src="assets/images/features/heating.png" alt="הדמיה — חימום Graphene" loading="lazy" width="800" height="450">
                             </div>
                             <div class="s3-tech-body">
-                                <h4>לישת צוואר וכתפיים</h4>
-                                <p>עיסוי לישה ממוקד בצוואר ובכתפיים — כולל אפשרות לעיסוי מותניים+צוואר+כתפיים <strong>במקביל</strong></p>
+                                <h4>חימום Graphene</h4>
+                                <p>חימום לגב, למותניים ולרגליים</p>
                             </div>
                         </article>
                         <article class="s3-tech-card reveal reveal-delay-2">
                             <div class="s3-tech-media">
-                                <img src="assets/images/features/leg-foot-massage.webp" alt="עיסוי רגליים — כריות אוויר, עקב וגלגלוני כף רגל" loading="lazy" width="800" height="450">
+                                <img src="assets/images/features/leg-foot-massage.png" alt="הדמיה — גלילי כף רגל" loading="lazy" width="800" height="450">
                             </div>
                             <div class="s3-tech-body">
-                                <h4>גלגלוני כף רגל + כריות אוויר</h4>
-                                <p>לישת גלגלוני כף רגל (Foot Roller) וכריות אוויר מחבקות — עטיפה, הקשה ולישה מלאה לרגליים</p>
+                                <h4>גלילי כף רגל</h4>
+                                <p>לישה לכפות הרגליים (Foot Roller Kneading)</p>
                             </div>
                         </article>
                         <article class="s3-tech-card s3-tech-card--wide reveal reveal-delay-1">
                             <div class="s3-tech-media">
-                                <img src="assets/images/features/zero-gravity-lifestyle.webp" alt="כורסה במצב Zero Gravity עם מנגנון רגליים משולב" loading="lazy" width="1200" height="675">
+                                <img src="assets/images/features/zero-gravity-lifestyle.webp" alt="כורסת עיסוי בבית" loading="lazy" width="1200" height="675">
                             </div>
                             <div class="s3-tech-body">
-                                <h4>Zero Gravity + עיצוב פרימיום</h4>
-                                <p>מצב שכיבה מלא עם מנגנון רגליים משולב — נוחות מקסימלית ומראה יוקרתי לכל חדר</p>
+                                <h4>עיסוי צוואר, כתפיים ומותניים</h4>
+                                <p>לישה לצוואר ולכתפיים, ועיסוי במקביל למותניים, צוואר וכתפיים</p>
                             </div>
                         </article>
                         <article class="s3-tech-card s3-tech-card--wide s3-tech-card--portrait reveal reveal-delay-2">
                             <div class="s3-tech-media">
-                                <img src="assets/images/features/lcd-control-panel.webp" alt="מסך LCD שליטה — תוכניות מהירות, מפת גוף, חימום, Zero Gravity ופקודות קוליות" loading="lazy" width="1536" height="1024">
+                                <img src="assets/images/features/lcd-control-panel.png" alt="מסך LCD ושליטה בכורסה" loading="lazy" width="1536" height="1024">
                             </div>
                             <div class="s3-tech-body">
-                                <h4>מסך LCD + פקודות קוליות</h4>
-                                <p>מסך LCD גדול עם תוכניות מהירות, מפת גוף, <strong>טיימר עיסוי</strong>, שליטה בחוזק וחימום — וגם <strong>פקודות קוליות חכמות</strong> ו-Bluetooth HIFI. בנוסף: כפתורי קיצור במשענת.</p>
+                                <h4>מסך LCD + שליטה קולית</h4>
+                                <p>מסך LCD גדול, שליטה קולית חכמה, Bluetooth Hi-Fi ומוזיקה מובנית</p>
+                            </div>
+                        </article>
+                        <article class="s3-tech-card reveal reveal-delay-1">
+                            <div class="s3-tech-media">
+                                <img src="assets/images/features/speaker-detail.png" alt="רמקול Bluetooth Hi-Fi" loading="lazy" width="800" height="450">
+                            </div>
+                            <div class="s3-tech-body">
+                                <h4>Bluetooth Hi-Fi</h4>
+                                <p>מערכת שמע מובנית לפי הקטלוג</p>
+                            </div>
+                        </article>
+                        <article class="s3-tech-card reveal reveal-delay-2">
+                            <div class="s3-tech-media">
+                                <img src="assets/images/features/airbags.png" alt="הדמיה — כריות אוויר" loading="lazy" width="800" height="450">
+                            </div>
+                            <div class="s3-tech-body">
+                                <h4>כריות אוויר</h4>
+                                <p>מערכת כריות אוויר לעיסוי ולחיצה עוטפת</p>
                             </div>
                         </article>
                     </div>
                 </div>
 
-                <div class="s3-feats reveal">
-                    <h3 class="s3-feats-title"><i class="fas fa-list-check"></i> מה כלול בכורסה</h3>
-                    <div class="s3-feats-groups">
-                        <div class="s3-feats-group">
-                            <h4 class="s3-feats-group-title"><i class="fas fa-hand-holding-heart"></i> טכנולוגיית העיסוי</h4>
-                            <ul class="s3-feats-list">
-                                <li><i class="fas fa-road"></i>מסלול SL לאורך כל עמוד השדרה</li>
-                                <li><i class="fas fa-spa"></i>עיסוי צוואר וכתפיים</li>
-                                <li><i class="fas fa-people-arrows"></i>עיסוי במקביל בכל הגוף</li>
-                                <li><i class="fas fa-shoe-prints"></i>גלגלוני עיסוי לכפות הרגליים</li>
-                                <li><i class="fas fa-wind"></i>כריות אוויר ללחץ אוויר</li>
-                                <li><i class="fas fa-hand-sparkles"></i>תנועת לישה רכה</li>
-                                <li><i class="fas fa-temperature-high"></i>חימום גרפן באזור המותן</li>
-                            </ul>
-                        </div>
-                        <div class="s3-feats-group">
-                            <h4 class="s3-feats-group-title"><i class="fas fa-sliders"></i> בקרה וחוויה</h4>
-                            <ul class="s3-feats-list">
-                                <li><i class="fas fa-microphone"></i>פקודות קוליות</li>
-                                <li><i class="fas fa-sliders"></i>5 מצבי עיסוי מותאמים</li>
-                                <li><i class="fas fa-tablet-screen-button"></i>מסך LCD לשליטה מלאה</li>
-                                <li><i class="fas fa-clock"></i>טיימר עיסוי מתכוונן</li>
-                                <li><i class="fab fa-bluetooth-b"></i>חיבור Bluetooth HIFI</li>
-                                <li><i class="fas fa-couch"></i>ריפוד PU איכותי</li>
-                                <li><i class="fas fa-box"></i>אריזה שלמה All-in-One</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="s3-dims reveal">
-                    <h3 class="s3-dims-title"><i class="fas fa-ruler-combined"></i> מידות והתאמה לדלת</h3>
+                    <h3 class="s3-dims-title"><i class="fas fa-ruler-combined"></i> מידות ומשקל</h3>
                     <div class="s3-dims-grid">
-                        <div class="s3-dims-media">
-                            <img src="assets/images/features/product-dimensions.webp" alt="מידות כורסת עיסוי — ישיבה, שכיבה ורוחב פתח דלת" loading="lazy" width="800" height="1200">
-                        </div>
                         <table class="s3-dims-table">
                             <tbody>
-                                <tr><td>ישיבה</td><td>145 × 74 × 115 ס"מ</td></tr>
-                                <tr><td>שכיבה מלאה</td><td>178 × 74 × 102 ס"מ</td></tr>
-                                <tr><td>פתח דלת (כורסה)</td><td>75 ס"מ</td></tr>
-                                <tr><td>פתח דלת (אריזה)</td><td>78 ס"מ</td></tr>
+                                <tr><td>מידות הכורסה</td><td>154 × 74 × 112 ס״מ</td></tr>
+                                <tr><td>מידות אריזה</td><td>150 × 76 × 110 ס״מ</td></tr>
+                                <tr><td>משקל נטו</td><td>77 ק״ג</td></tr>
+                                <tr><td>משקל ברוטו</td><td>87 ק״ג</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -268,7 +271,7 @@
             </div>
         </section>
 
-        <section class="s4" id="lpReviewsSection" hidden aria-label="ביקורות לקוחות">
+        <section class="s4" id="lpReviewsSection" aria-label="ביקורות לקוחות">
             <div class="s4-fade-top"></div>
             <div class="s4-glow"></div>
             <div class="s4-head reveal">
@@ -295,7 +298,7 @@
                 <div class="s5-acc">
                     <details class="s5-item">
                         <summary>איך עובדת קבוצת הרכישה?</summary>
-                        <p>קבוצת הרכישה פועלת בשיטת "כוח הקנייה המשותף". ככל שיותר אנשים מצטרפים, המחיר יורד. הקבוצה נסגרת בתאריך היעד ואז מתבצעת הזמנה מרוכזת מהיצרן.</p>
+                        <p>קונים ביחד ישירות מהמפעל — בלי מתווכים. המחיר קבוע: <strong class="current-price">₪4,900</strong>.</p>
                     </details>
                     <details class="s5-item">
                         <summary>מתי אקבל את המוצר?</summary>
@@ -303,7 +306,7 @@
                     </details>
                     <details class="s5-item">
                         <summary>מה כוללת האחריות?</summary>
-                        <p>אחריות יצרן לשנה. שנה נוספת ב-500 שקל. המוצר עומד בתקן ישראלי ובאישור CE.</p>
+                        <p>אחריות יצרן לשנה. שנה נוספת ב-500 שקל.</p>
                     </details>
                     <details class="s5-item">
                         <summary>האם יש אפשרות החזרה?</summary>
@@ -311,11 +314,11 @@
                     </details>
                     <details class="s5-item">
                         <summary>האם הכורסה נכנסת בדלת?</summary>
-                        <p>כן — רוחב הכורסה 74 ס"מ ונדרש פתח דלת של לפחות <strong>75 ס"מ</strong>. עם האריזה המקורית נדרשים <strong>78 ס"מ</strong>. במצב שכיבה מלאה אורך הכורסה 178 ס"מ — מומלץ לוודא מקום בחדר.</p>
+                        <p>מידות האריזה לפי הקטלוג: <strong>150 × 76 × 110 ס״מ</strong>. מומלץ לוודא שהמשלוח נכנס בפתח הבית.</p>
                     </details>
                     <details class="s5-item">
-                        <summary>למה המחיר משתנה?</summary>
-                        <p>בזמן שהמכולה בדרך מסין המחיר הוא <strong class="current-price">₪2,900</strong>. לאחר הגעת המכולה — <strong>₪3,500</strong>. מחיר השוק: <strong class="original-price">₪12,000</strong>.</p>
+                        <summary>מה כלול במחיר?</summary>
+                        <p>הכורסה במחיר <strong class="current-price">₪4,900</strong>, אחריות יצרן לשנה, ומשלוח עד הבית <strong>₪400 עד 40 ק״מ</strong> מבאר יעקב. מעבר לזה <strong>+₪50 לכל 10 ק״מ</strong>. מחיר השוק: <strong class="original-price">₪12,000</strong>.</p>
                     </details>
                 </div>
             </div>
@@ -337,45 +340,19 @@
             </div>
         </section>
 
-        <section class="s6" id="gallery">
-            <div class="sec-card reveal">
-                <div class="vp-eyebrow"><span class="vp-eyebrow-num">04</span><span class="vp-eyebrow-line"></span><span class="vp-eyebrow-txt">מבט מקרוב</span></div>
-                <h2 class="sec-card-title">גלריית תמונות</h2>
-                <div class="s6-grid" id="s6Grid">
-                    <a href="#" class="s6-thumb s6-thumb--lg" data-img="assets/images/chair-cream-hires.png">
-                        <img src="assets/images/chair-cream-hires.png" alt="כורסת עיסוי — שמנת" loading="lazy">
-                        <span class="s6-label">שמנת</span>
-                    </a>
-                    <a href="#" class="s6-thumb" data-img="assets/images/chair-gray-hires.png">
-                        <img src="assets/images/chair-gray-hires.png" alt="כורסת עיסוי — אפור" loading="lazy">
-                        <span class="s6-label">אפור</span>
-                    </a>
-                    <a href="#" class="s6-thumb" data-img="assets/images/chair-black-hires.png">
-                        <img src="assets/images/chair-black-hires.png" alt="כורסת עיסוי — שחור" loading="lazy">
-                        <span class="s6-label">שחור</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <div class="s6-lb" id="s6Lb">
-            <button type="button" class="s6-lb-close" id="s6LbClose" aria-label="סגור"><i class="fas fa-xmark"></i></button>
-            <img id="s6LbImg" src="" alt="">
-        </div>
-
         <section class="s7">
             <div class="s7-inner reveal">
                 <h2 class="s7-title">מוכנים לחוויה?</h2>
                 <p class="s7-sub">הזמינו עכשיו והבטיחו מחיר מפעל<br>לפני שהמכולה נגמרת</p>
                 <div class="s7-price-row">
-                    <span class="s7-now current-price">₪2,900</span>
+                    <span class="s7-now current-price">₪4,900</span>
                     <span class="s7-was original-price">₪12,000</span>
                 </div>
                 <button type="button" class="s7-cta join-group-btn">
                     <i class="fab fa-whatsapp"></i>
                     <span class="btn-text">הזמינו עכשיו בוואטסאפ</span>
                 </button>
-                <p class="s7-note"><i class="fas fa-lock"></i> תשלום מאובטח · משלוח עד הבית</p>
+                <p class="s7-note"><i class="fas fa-lock"></i> תשלום מאובטח · משלוח ₪400 עד 40 ק״מ</p>
             </div>
         </section>
     </main>
@@ -417,7 +394,7 @@
     <div class="vp-sticky">
         <div class="vp-sticky-inner">
             <div class="vp-sticky-price">
-                <span class="vp-sticky-now current-price">₪2,900</span>
+                <span class="vp-sticky-now current-price">₪4,900</span>
                 <span class="vp-sticky-was original-price">₪12,000</span>
             </div>
             <button type="button" class="vp-sticky-btn join-group-btn">

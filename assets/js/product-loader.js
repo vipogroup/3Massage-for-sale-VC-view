@@ -46,7 +46,7 @@ function createExampleConfigFile() {
         price: 1599,
         discountPrice: 1299,
         currency: "₪",
-        endDate: "2025-12-31T23:59:59",
+        endDate: "2026-10-09T23:59:59",
         imagesFolder: "product-images",
         specFile: "product-spec.html",
         participants: 32,
@@ -368,6 +368,20 @@ function updateProductDetails(config) {
         document.querySelectorAll('.lp-price-note strong, .urgency-price-after, .vp-price-note strong').forEach(el => {
             el.textContent = after;
         });
+    }
+
+    const delivery = config.delivery || {};
+    const originName = (delivery.origin && delivery.origin.name) || 'באר יעקב';
+    const shipBase = delivery.basePrice != null ? Number(delivery.basePrice) : 400;
+    const shipKm = delivery.includedKm != null ? Number(delivery.includedKm) : 40;
+    const shipExtra = delivery.extraPer10Km != null ? Number(delivery.extraPer10Km) : 50;
+    const shipEl = document.getElementById('vpShip');
+    if (shipEl) {
+        shipEl.innerHTML = 'משלוח <strong>' + formatPrice(shipBase, currency) + '</strong> עד ' + shipKm + ' ק״מ מ' + originName;
+    }
+    const shipExtraEl = document.getElementById('vpShipExtra');
+    if (shipExtraEl) {
+        shipExtraEl.textContent = 'מעבר לזה +' + formatPrice(shipExtra, currency) + ' לכל 10 ק״מ · אחריות שנה';
     }
 
 

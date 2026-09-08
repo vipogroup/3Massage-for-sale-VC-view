@@ -1,13 +1,13 @@
 {
   "productName": "כורסת עיסוי VC - LUXURY",
-  "productDescription": "כורסת עיסוי VC - LUXURY. חוויית עיסוי מקצועית בנוחות הבית שלך",
+  "productDescription": "כורסת עיסוי עם מסילת SL, 5 מנועים, כריות אוויר, גלילי כף רגל וחימום Graphene לגב, מותניים ורגליים.",
   "price": 12000,
-  "discountPrice": 2900,
-  "priceAfterArrival": 3500,
+  "discountPrice": 4900,
+  "priceAfterArrival": 4900,
   "currency": "₪",
   "warrantyYears": 1,
   "warrantyExtensionPerYear": 500,
-  "endDate": "2025-12-31T23:59:59",
+  "endDate": "2026-10-09T23:59:59",
   "imagesFolder": "product-images",
   "specFile": "product-spec.html",
   "participants": 25,
@@ -49,6 +49,22 @@
     "publicForm": true,
     "pageUrl": "https://vipogroup.github.io/3Massage-for-sale-VC-view/review.html",
     "requestUrl": "https://vipogroup.github.io/3Massage-for-sale-VC-view/review-request.html",
-    "items": []
+    "items": [
+      {
+        "name": "דוד כ. · שמנת",
+        "text": "הכורסה מרגישה יוקרתית, העיסוי חזק ומדויק. קניתי דרך הקבוצה במחיר מפעל — חוסך אלפי שקלים.",
+        "stars": 5
+      },
+      {
+        "name": "מירי ל. · נייבי",
+        "text": "החימום בגב ובמותניים ממש מרגיע אחרי יום עבודה. הגיעה ארוזה מעולה, היה קל להתקין.",
+        "stars": 5
+      },
+      {
+        "name": "אבי ש. · שחור",
+        "text": "שירות מהיר בוואטסאפ, הסבר על כל הפיצ'רים. השליטה הקולית נוחה, כל המשפחה משתמשת.",
+        "stars": 5
+      }
+    ]
   }
 }

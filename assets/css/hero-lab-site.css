@@ -69,9 +69,9 @@ button.join-group-btn.is-sold-out {
     text-transform: uppercase;
 }
 
-/* ── Compact layout: smaller content, header stays full size ── */
+/* ── Base size stays 16px so rem sizes match across the page ── */
 html {
-    font-size: 14px;
+    font-size: 16px;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
 }
@@ -98,11 +98,11 @@ body {
 }
 
 .vp-header .vp-logo-word {
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .vp-header .vp-logo-tag {
-    font-size: 8.5px;
+    font-size: 0.6875rem;
 }
 
 .vp-header .vp-logo-rule {
@@ -112,7 +112,8 @@ body {
 }
 
 main .vp-stage {
-    aspect-ratio: 16 / 11;
+    aspect-ratio: 4 / 3;
+    max-height: 42vh;
 }
 
 /* Smooth crossfade — no scale flicker */
@@ -128,7 +129,7 @@ main .vp-stage {
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     opacity: 0;
     transform: none !important;
     transition: opacity 0.65s ease-in-out;
@@ -151,26 +152,12 @@ main .vp-copy {
     padding: 14px 16px 10px;
 }
 
-main .vp-title {
-    font-size: 1.5rem;
-}
-
 main .vp-title span {
-    font-size: 0.74rem;
     margin-top: 4px;
-}
-
-main .vp-price-now {
-    font-size: 2rem;
 }
 
 main .vp-trust li {
     padding: 10px 4px;
-    font-size: 0.64rem;
-}
-
-main .vp-trust i {
-    font-size: 1rem;
 }
 
 main .s2-bg {
@@ -190,7 +177,7 @@ main .s2-card {
 }
 
 main .s2-t span {
-    font-size: 1.2rem;
+    font-size: var(--fs-xl);
 }
 
 main .s2-t {
@@ -199,7 +186,7 @@ main .s2-t {
 }
 
 main .s2-stat-num {
-    font-size: 1.3rem;
+    font-size: var(--fs-xl);
 }
 
 main .s3,
@@ -214,7 +201,6 @@ main .s4 {
 }
 
 main .s4-title {
-    font-size: 1.05rem;
     margin-bottom: 6px;
 }
 
@@ -223,7 +209,7 @@ main .s4-rating-row {
 }
 
 main .s4-avg {
-    font-size: 1.05rem;
+    font-size: var(--fs-lg);
 }
 
 main .s4-badge span.s4-badge-txt {
@@ -243,7 +229,6 @@ main .sec-card {
 }
 
 main .sec-card-title {
-    font-size: 1.2rem;
     margin-bottom: 14px;
 }
 
@@ -290,7 +275,7 @@ main .s3-feats {
 }
 
 main .s3-feats-title {
-    font-size: .86rem;
+    font-size: var(--fs-lg);
     margin-bottom: 12px;
 }
 
@@ -299,11 +284,11 @@ main .s3-feats-groups {
 }
 
 main .s3-feats-group-title {
-    font-size: .62rem;
+    font-size: var(--fs-sm);
 }
 
 main .s3-feats-list li {
-    font-size: .62rem;
+    font-size: var(--fs-sm);
     padding: 5px 0;
 }
 
@@ -329,13 +314,13 @@ main .s8-icon {
 }
 
 main .s8-title {
-    font-size: 1.15rem;
+    font-size: var(--fs-xl);
 }
 
 main .s8-btn {
     min-height: 44px;
     padding: 0 22px;
-    font-size: 0.82rem;
+    font-size: var(--fs-sm);
 }
 
 main .s7 {
@@ -346,17 +331,9 @@ main .s7-inner {
     padding: 28px 18px 22px;
 }
 
-main .s7-title {
-    font-size: 1.3rem;
-}
-
-main .s7-now {
-    font-size: 2rem;
-}
-
 main .s7-cta {
     min-height: 48px;
-    font-size: 0.92rem;
+    font-size: var(--fs-md);
 }
 
 main .vp-eyebrow {
@@ -396,7 +373,7 @@ main .vp-orb {
 }
 
 .s2-video-wrap video {
-    max-height: 190px;
+    max-height: 180px;
 }
 
 .vp-footer .vp-ft-top {
@@ -458,38 +435,76 @@ main .vp-orb {
     font-size: 1.25rem;
 }
 
-@media (max-width: 360px) {
-    .s2-t span { font-size: 1.05rem; }
-    .s2-t-sep { font-size: 1rem; }
+@media (min-width: 768px) {
+    html, body { max-width: 720px; }
+}
+
+@media (min-width: 1100px) {
+    html, body { max-width: 800px; }
 }
 
 .s2-video-wrap {
-    margin-top: 14px;
+    margin-top: 10px;
     border-radius: 16px;
     overflow: hidden;
     position: relative;
     background: var(--navy);
     box-shadow: 0 12px 32px rgba(28, 43, 70, 0.12);
+    max-height: 180px;
 }
 
 .s2-video-wrap video {
     width: 100%;
+    height: 180px;
+    max-height: 28vh;
     display: block;
-    aspect-ratio: 16 / 9;
     object-fit: cover;
+}
+
+.s2-video-play {
+    position: absolute;
+    inset: 0;
+    border: none;
+    background: rgba(28, 43, 70, 0.38);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.s2-video-play i {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.s2-video-wrap.is-playing .s2-video-play,
+.s2-video-wrap.is-full .s2-video-play {
+    display: none;
 }
 
 .s2-video-switch {
     position: absolute;
     left: 50%;
-    bottom: 12px;
+    bottom: 10px;
     transform: translateX(-50%);
     border: none;
     border-radius: 999px;
-    padding: 8px 14px;
+    padding: 7px 12px;
     background: rgba(255, 255, 255, 0.92);
     color: var(--navy);
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     font-weight: 700;
     cursor: pointer;
     display: inline-flex;
@@ -498,8 +513,17 @@ main .vp-orb {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
+.s2-video-wrap.is-idle .s2-video-switch,
 .s2-video-wrap.is-full .s2-video-switch {
     display: none;
+}
+
+@media (min-width: 768px) {
+    .s2-video-wrap,
+    .s2-video-wrap video {
+        max-height: 220px;
+        height: 220px;
+    }
 }
 
 /* Buyers list */
@@ -613,6 +637,7 @@ main .vp-orb {
 
 .lp-buyer-color.is-cream { background: #f5f0e8; color: #6b5c45; }
 .lp-buyer-color.is-gray { background: #ececec; color: #4a4a4d; }
+.lp-buyer-color.is-navy { background: #e8eef6; color: #1e3a5f; }
 .lp-buyer-color.is-black { background: #e8e8ea; color: #1c1c1e; }
 .lp-buyer-color.is-brown { background: #f5ebe0; color: #7c4a1e; }
 .lp-buyer-color.is-beige { background: #f3efe6; color: #6b5c45; }

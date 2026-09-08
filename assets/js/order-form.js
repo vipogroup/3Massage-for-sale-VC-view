@@ -4,7 +4,7 @@
 (function () {
     const COLOR_OPTIONS = [
         { value: 'שמנת', hex: '#efe9df' },
-        { value: 'אפור', hex: '#7d7d80' },
+        { value: 'נייבי', hex: '#1e3a5f' },
         { value: 'שחור', hex: '#1c1c1e' }
     ];
 
@@ -89,7 +89,7 @@
             const n = Number(String(el.textContent).replace(/[^\d]/g, ''));
             if (n) return n;
         }
-        return 2900;
+        return 4900;
     }
 
     function formatMoney(amount) {
@@ -814,7 +814,7 @@
           <div class="order-price-breakdown">
             <div class="order-price-line">
               <span>כורסה (מחיר מכולה)</span>
-              <span id="orderProductPrice" class="order-product-price">₪2,900</span>
+              <span id="orderProductPrice" class="order-product-price">₪4,900</span>
             </div>
             <div class="order-price-line" id="orderDeliveryLine" hidden>
               <span id="orderDeliveryLabelText">משלוח</span>
@@ -822,7 +822,7 @@
             </div>
             <div class="order-price-line order-price-line-total">
               <span>סה״כ לתשלום</span>
-              <span id="orderTotalPrice" class="order-price-now">₪2,900</span>
+              <span id="orderTotalPrice" class="order-price-now">₪4,900</span>
             </div>
           </div>
           <span class="order-price-was original-price">מחיר שוק: ₪12,000</span>
