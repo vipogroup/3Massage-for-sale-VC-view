@@ -1,0 +1,55 @@
+{
+  "productName": "כורסת עיסוי VC - LUXURY",
+  "productDescription": "כורסת עיסוי VC - LUXURY. חוויית עיסוי מקצועית בנוחות הבית שלך",
+  "price": 12000,
+  "discountPrice": 2900,
+  "priceAfterArrival": 3500,
+  "currency": "₪",
+  "warrantyYears": 1,
+  "warrantyExtensionPerYear": 500,
+  "endDate": "2025-12-31T23:59:59",
+  "imagesFolder": "product-images",
+  "specFile": "product-spec.html",
+  "participants": 25,
+  "totalUnits": 54,
+  "soldUnits": 28,
+  "stockLive": {
+    "enabled": false
+  },
+  "orderApi": {
+    "enabled": true,
+    "url": "https://script.google.com/macros/s/AKfycbxtWO3xllFPKTNIaB5tcC0iTZ7y0kOH7CT9HcWIxBnSTPZOVdixWfNoofoXtAfWFKZN/exec",
+    "sheetId": "1zu6rf_ZklwrYwqC_mwzFjsknavedQX_dKC3EuwnEEVs"
+  },
+  "contactPhone": "0587009938",
+  "delivery": {
+    "origin": {
+      "name": "באר יעקב",
+      "lat": 31.9386,
+      "lon": 34.8374
+    },
+    "basePrice": 400,
+    "includedKm": 40,
+    "extraPer10Km": 50
+  },
+  "shipment": {
+    "currentStage": "shipped"
+  },
+  "demoVideo": {
+    "preview": "assets/1.mp4",
+    "full": "assets/d2.mp4"
+  },
+  "buyersList": {
+    "enabled": false,
+    "initialVisible": 5,
+    "maxVisible": 25
+  },
+  "reviews": {
+    "enabled": true,
+    "moderation": true,
+    "publicForm": true,
+    "pageUrl": "https://vipogroup.github.io/3Massage-for-sale-VC-view/review.html",
+    "requestUrl": "https://vipogroup.github.io/3Massage-for-sale-VC-view/review-request.html",
+    "items": []
+  }
+}
