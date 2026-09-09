@@ -805,8 +805,23 @@ main > section + section::after {
 .s8-title { font-family: var(--display); font-size: var(--fs-xl); font-weight: 800; color: #fff; margin-bottom: 8px; }
 .s8-sub { font-size: var(--fs-sm); color: rgba(255,255,255,.6); margin-bottom: 20px; line-height: 1.6; }
 .s8-thumbs {
+    position: relative;
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
     margin: 0 0 16px;
+}
+.s8-thumbs-tag {
+    position: absolute;
+    top: 6px;
+    inset-inline-start: 6px;
+    z-index: 3;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(12, 18, 32, .82);
+    color: #fff;
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    pointer-events: none;
 }
 .s8-thumbs img {
     width: 100%; height: 72px; object-fit: cover; border-radius: 10px;

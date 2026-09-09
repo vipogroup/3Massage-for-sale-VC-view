@@ -50,7 +50,7 @@ function createExampleConfigFile() {
         imagesFolder: "product-images",
         specFile: "product-spec.html",
         participants: 32,
-        contactPhone: "0587009938"
+        contactPhone: "0533752633"
     };
     
     // הצגת הקוד לקובץ config.json

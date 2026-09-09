@@ -4,6 +4,7 @@
 (function (global) {
     let settlements = null;
     let zipIndex = null;
+    let cityZipIndex = null;
     let loadPromise = null;
 
     function normalizeName(value) {
@@ -65,10 +66,12 @@
         ]).then(function (results) {
             settlements = Array.isArray(results[0]) ? results[0] : [];
             zipIndex = results[1] && typeof results[1] === 'object' ? results[1] : {};
+            cityZipIndex = buildCityZipIndex(zipIndex);
             return true;
         }).catch(function () {
             settlements = [];
             zipIndex = {};
+            cityZipIndex = {};
             return true;
         });
         return loadPromise;
@@ -116,6 +119,65 @@
         return null;
     }
 
+    function buildCityZipIndex(index) {
+        const map = {};
+        if (!index) return map;
+        Object.keys(index).forEach(function (zip) {
+            const rec = index[zip];
+            if (!rec || !rec.city) return;
+            const key = normalizeName(rec.city);
+            if (!key) return;
+            if (!map[key] || String(zip).endsWith('00')) {
+                map[key] = zip;
+            }
+        });
+        return map;
+    }
+
+    function lookupZipByCity(cityName) {
+        if (!cityZipIndex || !cityName) return null;
+        const key = normalizeName(cityName);
+        if (!key) return null;
+
+        if (cityZipIndex[key] && zipIndex[cityZipIndex[key]]) {
+            return {
+                zip: cityZipIndex[key],
+                city: zipIndex[cityZipIndex[key]].city
+            };
+        }
+
+        const settlement = findSettlement(cityName, '');
+        if (settlement && settlement.item) {
+            const skey = normalizeName(settlement.item.name);
+            if (cityZipIndex[skey] && zipIndex[cityZipIndex[skey]]) {
+                return {
+                    zip: cityZipIndex[skey],
+                    city: zipIndex[cityZipIndex[skey]].city
+                };
+            }
+        }
+
+        let bestKey = null;
+        let bestDist = 999;
+        Object.keys(cityZipIndex).forEach(function (name) {
+            if (name.length < 2) return;
+            const maxLen = Math.max(key.length, name.length);
+            const allowed = maxLen <= 4 ? 1 : 2;
+            const dist = levenshtein(key, name);
+            if (dist <= allowed && dist < bestDist) {
+                bestDist = dist;
+                bestKey = name;
+            }
+        });
+        if (bestKey && zipIndex[cityZipIndex[bestKey]]) {
+            return {
+                zip: cityZipIndex[bestKey],
+                city: zipIndex[cityZipIndex[bestKey]].city
+            };
+        }
+        return null;
+    }
+
     function lookupByZip(zip) {
         if (!zipIndex || !zip) return null;
         if (zipIndex[zip]) return zipIndex[zip];
@@ -145,12 +207,18 @@
         });
     }
 
+    function normalizePostcode(raw) {
+        const digits = String(raw || '').replace(/\D/g, '');
+        return /^\d{7}$/.test(digits) ? digits : '';
+    }
+
     async function nominatimSearch(params) {
         try {
             const query = new URLSearchParams({
                 format: 'json',
                 limit: '1',
                 countrycodes: 'il',
+                addressdetails: '1',
                 'accept-language': 'he'
             });
             Object.keys(params).forEach(function (key) {
@@ -163,13 +231,44 @@
             if (!res.ok) return null;
             const data = await res.json();
             if (!Array.isArray(data) || !data.length) return null;
+            const item = data[0];
+            const address = item.address || {};
             return {
-                lat: Number(data[0].lat),
-                lon: Number(data[0].lon)
+                lat: Number(item.lat),
+                lon: Number(item.lon),
+                postcode: normalizePostcode(address.postcode)
             };
         } catch (err) {
             return null;
         }
+    }
+
+    async function lookupStreetZip(fields) {
+        const city = String(fields.city || '').trim();
+        const street = String(fields.street || '').trim();
+        const houseNumber = String(fields.houseNumber || '').trim();
+        if (!city || !street || !houseNumber) return null;
+
+        const result = await nominatimSearch({
+            street: houseNumber + ' ' + street,
+            city: city,
+            country: 'Israel'
+        });
+        if (result && result.postcode) {
+            return { zip: result.postcode, city: city, source: 'street' };
+        }
+        return null;
+    }
+
+    async function lookupZip(fields) {
+        await init();
+        const cityHit = lookupZipByCity(fields.city);
+        const streetHit = await lookupStreetZip(fields);
+        if (streetHit) return streetHit;
+        if (cityHit) {
+            return { zip: cityHit.zip, city: cityHit.city, source: 'city' };
+        }
+        return null;
     }
 
     function resultFromZip(zipHit, city) {
@@ -237,6 +336,8 @@
         init: init,
         geocodeAddress: geocodeAddress,
         findSettlement: findSettlement,
-        lookupByZip: lookupByZip
+        lookupByZip: lookupByZip,
+        lookupZipByCity: lookupZipByCity,
+        lookupZip: lookupZip
     };
 })(window);

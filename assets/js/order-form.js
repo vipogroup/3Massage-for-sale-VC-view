@@ -25,6 +25,9 @@
     let distanceCalcTimer = null;
     let distanceCalcRequestId = 0;
     let distanceIsApproximate = false;
+    let zipManual = false;
+    let lastAutofillZip = '';
+    let zipLookupRequestId = 0;
 
     function $(sel) {
         return document.querySelector(sel);
@@ -196,7 +199,7 @@
         if (!hasCompleteAddress(fields)) {
             resetDistanceCalculation();
             if (getChoiceValue('#orderDelivery') === 'delivery') {
-                setDistanceStatus('הזינ/י כתובת מלאה — המרחק יחושב אוטומטית מ' + getDeliverySettings().origin.name, '');
+                setDistanceStatus('הזינ/י עיר, רחוב ומספר בית — המיקוד והמרחק יחושבו אוטומטית מ' + getDeliverySettings().origin.name, '');
             }
             updatePriceSummary();
             return;
@@ -247,6 +250,92 @@
         updatePriceSummary();
     }
 
+    function hasAddressForZip(fields) {
+        return fields.city.length >= 2 &&
+            fields.street.length >= 2 &&
+            fields.houseNumber.length >= 1;
+    }
+
+    function setZipStatus(message, type) {
+        const el = $('#orderZipStatus');
+        if (!el) return;
+        el.textContent = message || '';
+        el.className = 'order-zip-status' + (type ? ' is-' + type : '');
+    }
+
+    function toggleZipLookupLink(show) {
+        const link = $('#orderZipLookup');
+        if (link) link.hidden = !show;
+    }
+
+    function canOverwriteZip(zipEl) {
+        if (zipManual) return false;
+        const current = normalizeZip(zipEl && zipEl.value);
+        return !current || current === lastAutofillZip;
+    }
+
+    function applyAutofillZip(zip, source) {
+        const zipEl = $('#orderDelZip');
+        if (!zipEl || !zip) return;
+        zipEl.value = zip;
+        lastAutofillZip = zip;
+        setZipStatus(
+            source === 'street'
+                ? 'מיקוד זוהה לפי הכתובת — אפשר לתקן'
+                : 'מיקוד לפי היישוב — אפשר לתקן',
+            'ready'
+        );
+        toggleZipLookupLink(false);
+    }
+
+    async function lookupAndFillZip() {
+        const fields = getAddressFields();
+        const zipEl = $('#orderDelZip');
+        if (!hasAddressForZip(fields) || !zipEl) {
+            if (!zipManual) setZipStatus('', '');
+            toggleZipLookupLink(false);
+            return;
+        }
+        if (!window.DeliveryGeocode) {
+            setZipStatus('לא הצלחנו לזהות מיקוד — אפשר להזין ידנית', 'error');
+            toggleZipLookupLink(true);
+            return;
+        }
+
+        const requestId = ++zipLookupRequestId;
+        await window.DeliveryGeocode.init();
+        if (requestId !== zipLookupRequestId) return;
+
+        if (canOverwriteZip(zipEl)) {
+            const cityHit = window.DeliveryGeocode.lookupZipByCity(fields.city);
+            if (cityHit && cityHit.zip) {
+                applyAutofillZip(cityHit.zip, 'city');
+            } else {
+                setZipStatus('מזהה מיקוד לפי הכתובת…', 'loading');
+            }
+        }
+
+        window.DeliveryGeocode.lookupZip(fields).then(function (result) {
+            if (requestId !== zipLookupRequestId) return;
+            if (result && result.zip && canOverwriteZip($('#orderDelZip'))) {
+                const prev = normalizeZip(($('#orderDelZip') && $('#orderDelZip').value) || '');
+                applyAutofillZip(result.zip, result.source);
+                if (prev !== result.zip) calculateDeliveryDistance();
+                return;
+            }
+            if (!validateZip(($('#orderDelZip') && $('#orderDelZip').value) || '')) {
+                setZipStatus('לא מצאנו מיקוד — אפשר להזין ידנית', 'error');
+                toggleZipLookupLink(true);
+            }
+        }).catch(function () {
+            if (requestId !== zipLookupRequestId) return;
+            if (!validateZip(($('#orderDelZip') && $('#orderDelZip').value) || '')) {
+                setZipStatus('לא מצאנו מיקוד — אפשר להזין ידנית', 'error');
+                toggleZipLookupLink(true);
+            }
+        });
+    }
+
     function scheduleDistanceCalculation() {
         if (getChoiceValue('#orderDelivery') !== 'delivery') return;
         if (distanceCalcTimer) clearTimeout(distanceCalcTimer);
@@ -256,12 +345,14 @@
         updatePriceSummary();
         distanceCalcTimer = setTimeout(function () {
             distanceCalcTimer = null;
-            calculateDeliveryDistance();
-        }, 900);
+            lookupAndFillZip().then(function () {
+                calculateDeliveryDistance();
+            });
+        }, 700);
     }
 
     function getSellerWhatsAppUrl(message) {
-        const phone = normalizePhone((appConfig && appConfig.contactPhone) || '587009938');
+        const phone = normalizePhone((appConfig && appConfig.contactPhone) || '533752633');
         return 'https://wa.me/972' + phone + '?text=' + encodeURIComponent(message);
     }
 
@@ -367,6 +458,7 @@
         document.body.classList.add('order-open');
         setStatus('');
         updatePriceSummary();
+        if (window.DeliveryGeocode) window.DeliveryGeocode.init();
         const nameInput = $('#orderName');
         if (nameInput && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
             nameInput.focus();
@@ -455,7 +547,8 @@
         panel.hidden = deliveryType !== 'delivery';
         if (deliveryType === 'delivery') {
             const settings = getDeliverySettings();
-            setDistanceStatus('הזינ/י כתובת מלאה — המרחק יחושב אוטומטית מ' + settings.origin.name, '');
+            setDistanceStatus('הזינ/י עיר, רחוב ומספר בית — המיקוד והמרחק יחושבו אוטומטית מ' + settings.origin.name, '');
+            if (window.DeliveryGeocode) window.DeliveryGeocode.init();
         } else {
             resetDistanceCalculation();
         }
@@ -535,7 +628,17 @@
     function bindDeliveryInputs() {
         const panel = $('#orderDeliveryPanel');
         if (!panel) return;
-        panel.addEventListener('input', scheduleDistanceCalculation);
+        panel.addEventListener('input', function (e) {
+            const id = e.target && e.target.id;
+            if (id === 'orderDelZip') {
+                zipManual = true;
+                setZipStatus('מיקוד שהוזן ידנית — אפשר לתקן', '');
+                toggleZipLookupLink(false);
+            } else if (id === 'orderDelCity' || id === 'orderDelStreet' || id === 'orderDelHouse') {
+                zipManual = false;
+            }
+            scheduleDistanceCalculation();
+        });
         panel.addEventListener('change', scheduleDistanceCalculation);
         const zipEl = $('#orderDelZip');
         if (zipEl) {
@@ -624,7 +727,7 @@
                 return false;
             }
             if (!validateZip(fields.zip)) {
-                setStatus('נא להזין מיקוד בן 7 ספרות (כמו בדואר ישראל)', 'error');
+                setStatus('לא זוהה מיקוד — בדקו את הכתובת או הזינו 7 ספרות', 'error');
                 $('#orderDelZip') && $('#orderDelZip').focus();
                 return false;
             }
@@ -797,11 +900,12 @@
               <input type="text" id="orderDelApt" class="order-input" placeholder="דירה 3">
             </div>
             <div class="order-field-col">
-              <label for="orderDelZip">מיקוד * <span class="order-label-note">7 ספרות</span></label>
-              <input type="text" id="orderDelZip" class="order-input" inputmode="numeric" autocomplete="postal-code" placeholder="1234567" maxlength="7" pattern="[0-9]{7}">
+              <label for="orderDelZip">מיקוד * <span class="order-label-note">אוטומטי</span></label>
+              <input type="text" id="orderDelZip" class="order-input" inputmode="numeric" autocomplete="postal-code" placeholder="יתמלא לפי הכתובת" maxlength="7" pattern="[0-9]{7}">
             </div>
           </div>
-          <a class="order-zip-lookup" href="https://doar.israelpost.co.il/locatezip" target="_blank" rel="noopener noreferrer">
+          <p class="order-zip-status" id="orderZipStatus" aria-live="polite"></p>
+          <a class="order-zip-lookup" id="orderZipLookup" href="https://doar.israelpost.co.il/locatezip" target="_blank" rel="noopener noreferrer" hidden>
             <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
             איתור מיקוד בדואר ישראל
           </a>

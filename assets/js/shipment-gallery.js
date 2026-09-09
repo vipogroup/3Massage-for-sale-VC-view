@@ -355,8 +355,8 @@
                 const hiddenCls = idx >= hiddenFrom ? ' sg-thumb--hidden' : '';
                 const lbIdx = lightboxImages.findIndex(function (item) { return item.src === src; });
                 return (
-                    '<button type="button" class="sg-thumb' + hiddenCls + '" data-src="' + src + '" data-lb-index="' + lbIdx + '" aria-label="תמונה ' + (idx + 1) + '">' +
-                    '<img src="' + src + '" alt="' + stage.label + ' ' + (idx + 1) + '" loading="lazy">' +
+                    '<button type="button" class="sg-thumb' + hiddenCls + (idx === 0 ? ' sg-thumb--tagged' : '') + '" data-src="' + src + '" data-lb-index="' + lbIdx + '" aria-label="תמונה ' + (idx + 1) + '">' +
+                    '<img src="' + src + '" alt="' + stage.label + ' — מכולה קודמת ' + (idx + 1) + '" loading="lazy">' +
                     '</button>'
                 );
             }).join('');

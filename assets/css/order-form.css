@@ -452,6 +452,28 @@ body.order-open {
     color: #dc2626;
 }
 
+.order-zip-status {
+    margin: -6px 0 10px;
+    min-height: 1.2em;
+    font-size: 0.74rem;
+    font-weight: 700;
+    line-height: 1.45;
+    text-align: center;
+    color: var(--ink-3, #8b95a6);
+}
+
+.order-zip-status.is-loading {
+    color: var(--accent, #3c5070);
+}
+
+.order-zip-status.is-ready {
+    color: var(--green, #1a6b4a);
+}
+
+.order-zip-status.is-error {
+    color: #dc2626;
+}
+
 .order-zip-lookup {
     display: inline-flex;
     align-items: center;
