@@ -3,9 +3,9 @@
  */
 (function () {
     const COLOR_OPTIONS = [
-        { value: 'שמנת', hex: '#efe9df' },
-        { value: 'נייבי', hex: '#1e3a5f' },
-        { value: 'שחור', hex: '#1c1c1e' }
+        { value: 'בז׳', hex: '#efe9df' },
+        { value: 'כחול', hex: '#1e3a5f' },
+        { value: 'חום', hex: '#1c1c1e' }
     ];
 
     const PAYMENT_OPTIONS = [

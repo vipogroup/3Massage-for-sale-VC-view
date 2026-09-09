@@ -53,16 +53,23 @@
             <div class="vp-copy">
                 <div class="vp-title-row">
                     <h1 class="vp-title product-title">כורסת עיסוי<span>VC LUXURY</span></h1>
-                    <span class="vp-tag">מפעל ישיר</span>
+                    <span class="vp-tag">רכישה משותפת</span>
                 </div>
                 <div class="vp-pricing">
                     <span class="vp-price-now current-price">₪4,900</span>
                     <span class="vp-price-was original-price">₪12,000</span>
                     <span class="vp-badge-save">59% הנחה</span>
                 </div>
-                <p class="vp-ship" id="vpShip">משלוח <strong>₪400</strong> עד 40 ק״מ מבאר יעקב</p>
-                <p class="vp-ship-extra" id="vpShipExtra">מעבר לזה +₪50 לכל 10 ק״מ · אחריות שנה</p>
+                <div class="vp-why">
+                    <p class="vp-why-title">למה זה לא מחיר חנות?</p>
+                    <p>בחנויות בארץ הכורסה נמכרת ב־<strong class="original-price">₪12,000</strong>. כאן קונים ביחד מכולה אחת מהמפעל — בלי חנות, בלי מחסן ובלי מתווך. חוסכים יחד בעלויות, ולכן המחיר <strong class="current-price">₪4,900</strong>.</p>
+                </div>
                 <p class="vp-price-note" hidden>מחיר לאחר הגעת המכולה: <strong>₪4,900</strong></p>
+                <ol class="vp-steps">
+                    <li><span>1</span><strong>נרשמים</strong><small>מצטרפים לקבוצה</small></li>
+                    <li><span>2</span><strong>המכולה נסגרת</strong><small>קונים יחד מהמפעל</small></li>
+                    <li><span>3</span><strong>מגיע הביתה</strong><small>הכורסה אצלכם</small></li>
+                </ol>
                 <button type="button" class="vp-cta join-group-btn">
                     <i class="fab fa-whatsapp"></i>
                     <span class="btn-text">הזמינו עכשיו</span>
@@ -119,20 +126,37 @@
                     </div>
                     </div>
                 </div>
-                <p class="s2-vid-label"><i class="fas fa-play-circle"></i> סרטון קצר</p>
-                <div class="s2-video-wrap is-idle" id="demoVideoWrap">
-                    <video id="demoVideo" muted playsinline preload="none" poster="assets/images/1.webp">
-                        הדפדפן שלך לא תומך בנגן וידאו.
-                    </video>
-                    <button type="button" class="s2-video-play" id="demoVideoPlay" aria-label="הפעל סרטון קצר בלי קול">
-                        <i class="fas fa-play"></i>
-                        <span>הפעל (בלי קול)</span>
-                    </button>
-                    <button type="button" class="s2-video-switch" id="demoVideoSwitch" hidden aria-label="החלף לסרטון מלא עם קול">
-                        <i class="fas fa-volume-up"></i>
-                        <span>עם קול</span>
-                    </button>
+                <p class="s2-vid-label"><i class="fas fa-play-circle"></i> סרטון הדגמה</p>
+                <button type="button" class="s2-vid-thumb" id="demoOpen" aria-label="פתח סרטון הדגמה">
+                    <img src="assets/images/chair-cream-hires.png" alt="סרטון הדגמה — כורסת עיסוי">
+                    <span class="s2-vid-overlay" aria-hidden="true"><i class="fas fa-play"></i></span>
+                </button>
+                <div class="s2-vid-modal" id="demoModal">
+                    <button type="button" class="s6-lb-close" id="demoClose" aria-label="סגור"><i class="fas fa-xmark"></i></button>
+                    <video id="demoVideo" controls playsinline preload="metadata" src="assets/chair-demo.mp4"></video>
                 </div>
+                <script>
+                (function () {
+                    var btn = document.getElementById('demoOpen');
+                    var modal = document.getElementById('demoModal');
+                    var video = document.getElementById('demoVideo');
+                    var closeBtn = document.getElementById('demoClose');
+                    if (!btn || !modal || !video) return;
+                    function show() {
+                        modal.classList.add('is-open');
+                        video.play().catch(function () {});
+                    }
+                    function hide() {
+                        video.pause();
+                        modal.classList.remove('is-open');
+                    }
+                    btn.addEventListener('click', show);
+                    if (closeBtn) closeBtn.addEventListener('click', hide);
+                    modal.addEventListener('click', function (e) {
+                        if (e.target === modal) hide();
+                    });
+                })();
+                </script>
             </div>
         </section>
 
@@ -163,8 +187,8 @@
                         <p>ללא מתווכים ויבואנים — חיסכון של אלפי שקלים על כל כורסה</p>
                     </div>
                 </div>
-                <div class="s3-specs-card">
-                    <h3 class="s3-specs-title"><i class="fas fa-list-check"></i> מפרט טכני</h3>
+                <details class="s3-specs-card">
+                    <summary class="s3-specs-title"><i class="fas fa-list-check"></i> מפרט טכני</summary>
                     <table class="s3-specs">
                         <tbody>
                             <tr><td>חומר</td><td>PU Leather + שלדת פלדה</td></tr>
@@ -183,7 +207,7 @@
                             <tr><td>צבעים (קטלוג)</td><td>חום / בז׳ / כחול</td></tr>
                         </tbody>
                     </table>
-                </div>
+                </details>
 
                 <div class="s3-tech reveal">
                     <h3 class="s3-tech-title"><i class="fas fa-microchip"></i> טכנולוגיית העיסוי</h3>
@@ -255,19 +279,6 @@
                     </div>
                 </div>
 
-                <div class="s3-dims reveal">
-                    <h3 class="s3-dims-title"><i class="fas fa-ruler-combined"></i> מידות ומשקל</h3>
-                    <div class="s3-dims-grid">
-                        <table class="s3-dims-table">
-                            <tbody>
-                                <tr><td>מידות הכורסה</td><td>154 × 74 × 112 ס״מ</td></tr>
-                                <tr><td>מידות אריזה</td><td>150 × 76 × 110 ס״מ</td></tr>
-                                <tr><td>משקל נטו</td><td>77 ק״ג</td></tr>
-                                <tr><td>משקל ברוטו</td><td>87 ק״ג</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -297,8 +308,8 @@
                 <h2 class="sec-card-title">שאלות נפוצות</h2>
                 <div class="s5-acc">
                     <details class="s5-item">
-                        <summary>איך עובדת קבוצת הרכישה?</summary>
-                        <p>קונים ביחד ישירות מהמפעל — בלי מתווכים. המחיר קבוע: <strong class="current-price">₪4,900</strong>.</p>
+                        <summary>למה זה זול יותר מחנות?</summary>
+                        <p>נרשמים לקבוצה וקונים יחד מכולה אחת מהמפעל. בלי חנות, בלי מחסן ובלי מתווך — לכן המחיר <strong class="current-price">₪4,900</strong> במקום <strong class="original-price">₪12,000</strong> בחנויות. אחרי סגירת הקבוצה המשלוח יוצא אליכם.</p>
                     </details>
                     <details class="s5-item">
                         <summary>מתי אקבל את המוצר?</summary>

@@ -35,8 +35,8 @@
     "currentStage": "shipped"
   },
   "demoVideo": {
-    "preview": "assets/1.mp4",
-    "full": "assets/d2.mp4"
+    "preview": "assets/chair-demo.mp4",
+    "full": "assets/chair-demo.mp4"
   },
   "buyersList": {
     "enabled": false,
@@ -51,17 +51,17 @@
     "requestUrl": "https://vipogroup.github.io/3Massage-for-sale-VC-view/review-request.html",
     "items": [
       {
-        "name": "דוד כ. · שמנת",
+        "name": "דוד כ. · בז׳",
         "text": "הכורסה מרגישה יוקרתית, העיסוי חזק ומדויק. קניתי דרך הקבוצה במחיר מפעל — חוסך אלפי שקלים.",
         "stars": 5
       },
       {
-        "name": "מירי ל. · נייבי",
+        "name": "מירי ל. · כחול",
         "text": "החימום בגב ובמותניים ממש מרגיע אחרי יום עבודה. הגיעה ארוזה מעולה, היה קל להתקין.",
         "stars": 5
       },
       {
-        "name": "אבי ש. · שחור",
+        "name": "אבי ש. · חום",
         "text": "שירות מהיר בוואטסאפ, הסבר על כל הפיצ'רים. השליטה הקולית נוחה, כל המשפחה משתמשת.",
         "stars": 5
       }

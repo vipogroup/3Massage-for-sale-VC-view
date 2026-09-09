@@ -7,6 +7,7 @@
         'חום': 'is-brown',
         "בז'": 'is-beige',
         'בז': 'is-beige',
+        'בז׳': 'is-beige',
         'כחול': 'is-blue'
     };
 

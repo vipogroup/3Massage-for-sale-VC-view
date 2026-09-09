@@ -5,7 +5,7 @@
     var COLORS = [
         {
             hex: '#efe9df',
-            label: 'שמנת',
+            label: 'בז׳',
             images: [
                 { src: 'assets/images/chair-cream-hires.png', angle: 'תלת רבע' },
                 { src: 'assets/images/chair-cream-front.png', angle: 'חזית' },
@@ -14,7 +14,7 @@
         },
         {
             hex: '#1e3a5f',
-            label: 'נייבי',
+            label: 'כחול',
             images: [
                 { src: 'assets/images/chair-navy-hires.png', angle: 'תלת רבע' },
                 { src: 'assets/images/chair-navy-front.png', angle: 'חזית' },
@@ -23,7 +23,7 @@
         },
         {
             hex: '#1c1c1e',
-            label: 'שחור',
+            label: 'חום',
             images: [
                 { src: 'assets/images/chair-black-hires.png', angle: 'תלת רבע' },
                 { src: 'assets/images/chair-black-front.png', angle: 'חזית' },
@@ -380,83 +380,11 @@
         fObs.observe(footer);
     }
 
-    function initDemoVideo() {
-        var demoPaths = { preview: 'assets/1.mp4', full: 'assets/d2.mp4' };
-        var demoVideo = document.getElementById('demoVideo');
-        var demoWrap = document.getElementById('demoVideoWrap');
-        var demoPlay = document.getElementById('demoVideoPlay');
-        var demoSwitch = document.getElementById('demoVideoSwitch');
-        if (!demoVideo || !demoWrap) return;
-
-        function setMode(mode) {
-            demoWrap.classList.remove('is-idle', 'is-playing', 'is-preview', 'is-full');
-            demoWrap.classList.add(mode);
-            if (demoSwitch) demoSwitch.hidden = mode !== 'is-playing';
-        }
-
-        function startPreview() {
-            demoVideo.src = demoPaths.preview;
-            demoVideo.muted = true;
-            demoVideo.loop = false;
-            demoVideo.removeAttribute('controls');
-            demoVideo.playsInline = true;
-            setMode('is-playing');
-            demoVideo.play().catch(function () {});
-        }
-
-        function switchToFullVideo() {
-            if (demoWrap.classList.contains('is-full')) return;
-            demoVideo.pause();
-            demoVideo.src = demoPaths.full;
-            demoVideo.muted = false;
-            demoVideo.loop = false;
-            demoVideo.setAttribute('controls', '');
-            demoVideo.load();
-            setMode('is-full');
-            demoVideo.play().catch(function () {});
-        }
-
-        fetch('config.json?_=' + Date.now())
-            .then(function (r) { return r.json(); })
-            .then(function (cfg) {
-                if (cfg.demoVideo) {
-                    if (cfg.demoVideo.preview) demoPaths.preview = cfg.demoVideo.preview;
-                    if (cfg.demoVideo.full) demoPaths.full = cfg.demoVideo.full;
-                }
-            })
-            .catch(function () {});
-
-        if (demoPlay) {
-            demoPlay.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                startPreview();
-            });
-        }
-        if (demoSwitch) {
-            demoSwitch.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                switchToFullVideo();
-            });
-        }
-        demoWrap.addEventListener('click', function (e) {
-            if (!demoWrap.classList.contains('is-idle')) return;
-            if (e.target === demoSwitch || (demoSwitch && demoSwitch.contains(e.target))) return;
-            startPreview();
-        });
-        demoVideo.addEventListener('ended', function () {
-            if (demoWrap.classList.contains('is-full')) return;
-            setMode('is-idle');
-        });
-    }
-
     document.addEventListener('DOMContentLoaded', function () {
         initGallery();
         initLightbox();
         initReveal();
         initStickyHide();
-        initDemoVideo();
         startCountdown();
     });
 
