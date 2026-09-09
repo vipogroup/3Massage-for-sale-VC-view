@@ -7,27 +7,27 @@
             hex: '#efe9df',
             label: 'בז׳',
             images: [
-                { src: 'assets/images/chair-cream-hires.png', angle: 'תלת רבע' },
-                { src: 'assets/images/chair-cream-front.png', angle: 'חזית' },
-                { src: 'assets/images/chair-cream-controls.png', angle: 'שליטה' }
+                { src: 'assets/images/chair-cream-hires.jpg', angle: 'תלת רבע' },
+                { src: 'assets/images/chair-cream-front.jpg', angle: 'חזית' },
+                { src: 'assets/images/chair-cream-controls.jpg', angle: 'שליטה' }
             ]
         },
         {
             hex: '#1e3a5f',
             label: 'כחול',
             images: [
-                { src: 'assets/images/chair-navy-hires.png', angle: 'תלת רבע' },
-                { src: 'assets/images/chair-navy-front.png', angle: 'חזית' },
-                { src: 'assets/images/chair-navy-controls.png', angle: 'שליטה' }
+                { src: 'assets/images/chair-navy-hires.jpg', angle: 'תלת רבע' },
+                { src: 'assets/images/chair-navy-front.jpg', angle: 'חזית' },
+                { src: 'assets/images/chair-navy-controls.jpg', angle: 'שליטה' }
             ]
         },
         {
             hex: '#1c1c1e',
             label: 'חום',
             images: [
-                { src: 'assets/images/chair-black-hires.png', angle: 'תלת רבע' },
-                { src: 'assets/images/chair-black-front.png', angle: 'חזית' },
-                { src: 'assets/images/chair-black-controls.png', angle: 'שליטה' }
+                { src: 'assets/images/chair-black-hires.jpg', angle: 'תלת רבע' },
+                { src: 'assets/images/chair-black-front.jpg', angle: 'חזית' },
+                { src: 'assets/images/chair-black-controls.jpg', angle: 'שליטה' }
             ]
         }
     ];
