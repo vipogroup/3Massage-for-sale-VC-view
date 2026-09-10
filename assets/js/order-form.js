@@ -371,7 +371,7 @@
     }
 
     function buildOrderMessage(data, orderResult) {
-        const product = (appConfig && appConfig.productName) || 'כורסת עיסוי VC - LUXURY';
+        const product = (appConfig && appConfig.productName) || 'כורסת עיסוי VC200';
         let msg = '🛒 *הזמנה חדשה מהאתר*\n\n';
         msg += 'מוצר: ' + product + '\n';
         msg += 'מחיר כורסה: ' + formatMoney(data.productPrice) + '\n';

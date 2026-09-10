@@ -2,7 +2,7 @@
  * שיתוף הדף — וואטסאפ, פייסבוק, טלגרם, העתקה, שיתוף מערכת
  */
 (function () {
-    const PRODUCT_TITLE = 'כורסת עיסוי VC - LUXURY';
+    const PRODUCT_TITLE = 'כורסת עיסוי VC200';
 
     function $(sel) {
         return document.querySelector(sel);

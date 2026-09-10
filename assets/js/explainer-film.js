@@ -1,6 +1,6 @@
 (function () {
     var SCENES = [
-        { src: 'assets/images/chair-cream-hires.png', kicker: 'ישירות מהמפעל', title: 'כורסת עיסוי VC LUXURY', sub: 'חוויית עיסוי מקצועית — בבית' },
+        { src: 'assets/images/chair-cream-hires.png', kicker: 'ישירות מהמפעל', title: 'כורסת עיסוי VC200', sub: 'חוויית עיסוי מקצועית — בבית' },
         { src: 'assets/images/chair-cream-front.png', kicker: 'צבע שמנת', title: 'מבט קדמי', sub: 'עיצוב נקי לכל חדר' },
         { src: 'assets/images/chair-navy-hires.png', kicker: 'צבע נייבי', title: 'נוכחות שקטה', sub: 'שלושה צבעים לבחירה' },
         { src: 'assets/images/chair-black-hires.png', kicker: 'צבע שחור', title: 'גימור יוקרתי', sub: 'שמנת · נייבי · שחור' },

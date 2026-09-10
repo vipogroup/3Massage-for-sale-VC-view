@@ -307,11 +307,15 @@ function updateProductDetails(config) {
             el.textContent = config.productName;
         });
         document.querySelectorAll('.vp-title').forEach(el => {
-            const parts = String(config.productName).split(/\s*-\s*/);
-            if (parts.length > 1) {
-                el.innerHTML = `${parts[0]}<span>${parts.slice(1).join(' - ')}</span>`;
+            const name = String(config.productName).trim();
+            const dashParts = name.split(/\s*-\s*/);
+            const prefixMatch = name.match(/^(כורסת עיסוי)\s+(.+)$/);
+            if (dashParts.length > 1) {
+                el.innerHTML = `${dashParts[0]}<span>${dashParts.slice(1).join(' - ')}</span>`;
+            } else if (prefixMatch) {
+                el.innerHTML = `${prefixMatch[1]}<span>${prefixMatch[2]}</span>`;
             } else {
-                el.innerHTML = `${config.productName}<span></span>`;
+                el.innerHTML = `${name}<span></span>`;
             }
         });
         document.title = `${config.productName} | VIPO`;
